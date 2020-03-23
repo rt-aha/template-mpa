@@ -1,5 +1,9 @@
 # fe-webpack
 
+## bugs
+
+- 熱重載失效
+
 ## note
 
 ### extract-text-webpack-plugin
