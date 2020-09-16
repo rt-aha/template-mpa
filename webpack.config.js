@@ -28,6 +28,20 @@ module.exports = {
         test: /\.html$/,
         loader: 'raw-loader',
       },
+      {
+        test: /\.(scss|sass)$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
