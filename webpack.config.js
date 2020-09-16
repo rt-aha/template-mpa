@@ -6,40 +6,32 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
-    './src/index.js',
-  ],
+  devtool: 'cheap-eval-source-map',
+  entry: ['./src/index.js'],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
     rules: [
+      // 在index.js中引入 .html，使hot reload生效
+      // 參考: https://github.com/AriaFallah/WebpackTutorial/tree/master/part1/html-reload
+      {
+        test: /\.html$/,
+        loader: 'raw-loader', // A loader for webpack that allows importing files as a String.
+      },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
 
-      // 在index.js中引入 .html，使hot reload生效
-      // 參考: https://github.com/AriaFallah/WebpackTutorial/tree/master/part1/html-reload
-      {
-        test: /\.html$/,
-        loader: 'raw-loader',
-      },
       {
         test: /\.(scss|sass)$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
-          },
+          // 'style-loader', // creates style nodes from JS strings，用js以string方式引入
+          MiniCssExtractPlugin.loader, // 生成 <style> 節點，另外引入
+          'css-loader', // translates CSS into CommonJS
+          'sass-loader', // compiles Sass to CSS, using Node Sass by default
         ],
       },
     ],
@@ -56,7 +48,7 @@ module.exports = {
   devServer: {
     contentBase: './dist', //本地服务器所加载的页面所在的目录
     // host: 'localhost',
-    // port: 6000, // port
+    port: 7010, // port
     hot: true, // 熱重載
     // inline: true,
     // compress: false, // 是否執行壓縮, 預設default
