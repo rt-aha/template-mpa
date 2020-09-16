@@ -1,18 +1,6 @@
-require('./index.html');
+// 引入但什麼都不做，僅是為了觸發改動index.html時的hot reload
+import '../template/index.html';
 
-console.log('hi bye');
-console.log('haha ');
-console.log('what');
-
-// require('./main.css');
-// const show = require('./show.js');
-
-// show('webpack !');
-// console.log(module);
-
-// if (module.hot) {
-//   console.log('???');
-//   module.hot.accept('./show.js', function () {
-//     console.log('Accepting the updated printMe module!');
-//   });
-// }
+// test
+// import { showText } from './forTest/showTextToBody.js';
+// showText('webpack 4~!');

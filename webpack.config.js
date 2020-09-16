@@ -36,7 +36,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './template/index.html',
     }),
   ],
   devServer: {
