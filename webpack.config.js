@@ -11,7 +11,10 @@ module.exports = {
   entry: ['./src/index.js'],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    // filename: 'bundle.js',
+    filename: 'js/[name].[hash:8].js',
+    chunkFilename: 'js/[name].shared.js',
+    // path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -26,13 +29,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+         'css-loader'],
       },
       {
         test: /\.(scss|sass)$/,
         use: [
-          // 'style-loader', // creates style nodes from JS strings，用js以string方式引入
-          MiniCssExtractPlugin.loader, // 生成 <style> 節點，另外引入
+          MiniCssExtractPlugin.loader,
           'css-loader', // translates CSS into CommonJS
           'sass-loader', // compiles Sass to CSS, using Node Sass by default
         ],
@@ -51,7 +55,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: './styles/[name].css',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
