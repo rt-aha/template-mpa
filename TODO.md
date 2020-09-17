@@ -1,4 +1,8 @@
 - pug 
 - image v
 - compress
-- es6+
+- es6+ v
+- 多頁面
+- lint
+- scss
+- rwd
