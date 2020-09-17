@@ -19,18 +19,15 @@ module.exports = {
       // 參考: https://github.com/AriaFallah/WebpackTutorial/tree/master/part1/html-reload
       {
         test: /\.html$/,
- 
-            loader: 'html-loader',
-            options: {
-              attributes: true
-            }
-        
+        loader: 'html-loader',
+        options: {
+          attributes: true
+        }
       },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
-
       {
         test: /\.(scss|sass)$/,
         use: [
@@ -41,11 +38,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpe?g|gif)$/,
+        test: /\.(png|svg|jpe?g|gif|webp)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          // publicPath: './images',
           outputPath: './assets'
         }
       },

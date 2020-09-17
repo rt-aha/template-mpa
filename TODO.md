@@ -1,3 +1,4 @@
-- pug
-- image
+- pug 
+- image v
 - compress
+- es6+
