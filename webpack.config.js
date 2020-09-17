@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -18,7 +19,12 @@ module.exports = {
       // 參考: https://github.com/AriaFallah/WebpackTutorial/tree/master/part1/html-reload
       {
         test: /\.html$/,
-        loader: 'raw-loader', // A loader for webpack that allows importing files as a String.
+ 
+            loader: 'html-loader',
+            options: {
+              attributes: true
+            }
+        
       },
       {
         test: /\.css$/,
@@ -34,17 +40,34 @@ module.exports = {
           'sass-loader', // compiles Sass to CSS, using Node Sass by default
         ],
       },
+      {
+        test: /\.(png|svg|jpe?g|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          // publicPath: './images',
+          outputPath: './assets'
+        }
+      },
+      
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css', // css檔案名字 + 8位元hash
+      filename: '[name].css',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './template/index.html',
+      template: path.resolve(__dirname, './src/template/','index.html'),
+      
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+  },
   devServer: {
     contentBase: './dist', //本地服务器所加载的页面所在的目录
     // host: 'localhost',
@@ -52,14 +75,6 @@ module.exports = {
     hot: true, // 熱重載
     // inline: true,
     // compress: false, // 是否執行壓縮, 預設default
-    // open: false, // 是否自動開啟網頁
+    open: false, // 是否自動開啟網頁
   },
-  // // 生產環境不用source-map, 即使有source-map 也有準確度問題, eval-source-map準確度最高，但打包速度稍慢一些
-  // devtool: process.env.NODE_ENV !== 'production' ? 'eval-source-map' : false,
-  // mode: 'development', // 環境
-  // // 監聽參數設定
-  // watch: process.env.NODE_ENV !== 'production' ? false : true, // 是否監聽 // 開發才需要監聽
-  // watchOptions: {
-  //   ignored: /node_modules/,
-  // },
 };
