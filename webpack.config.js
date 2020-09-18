@@ -3,6 +3,7 @@ require('dotenv').config()
 const envType = process.env.ENV_TYPE;
 
 
+
 // https://www.jianshu.com/p/4d254c191726
 const glob = require('glob');
 
@@ -18,6 +19,13 @@ const getEntry = () => {
   });
   return entry;
 };
+
+
+const fileList = Object.keys(getEntry());
+// 若沒有任何模板就跳開
+if(fileList.length === 0) {
+  throw new Error('Please run command `sh sh/init.sh` first!!')
+}
 
 const webpack = require('webpack');
 const path = require('path');
@@ -123,10 +131,10 @@ const config = {
   },
 };
 
-Object.keys(config.entry).forEach((name) => {
+fileList.forEach((name) => {
   config.plugins.push(
     new HtmlWebpackPlugin({
-      template: `./src/template/${name}.${envType}`,
+      template: `./src/template/${name}.${envType.toLowerCase()}`,
       filename: `${name}.html`,
       chunks: ['common', 'runtime', 'vendor', 'action', `${name}`],
       minify: {
