@@ -6,3 +6,5 @@
 - lint
 - scss
 - rwd
+- merge-config
+- pug 用merge方式另外寫個webpack
