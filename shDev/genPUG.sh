@@ -9,12 +9,12 @@ html(lang="en")\n
 '
 
 
-echo "PHASE: Start generate .html template and .js"
+echo "----- Start generate .html template and .js"
 
 # 沒有參數直接離開
 if [ "$#" = "0" ]
 then
-  echo "PHASE: please enter at least a argument"
+  echo "-WARN: please enter at least a argument"
   echo "EXIT"
   exit
 fi
@@ -39,13 +39,13 @@ for arg in $@
   then
     echo $templateString >> src/template/$arg.pug
     touch src/js/$arg.js
-    echo "info: create $arg.pug and $arg.js success!"
+    echo "-info: create $arg.pug and $arg.js success!"
   else
-    echo "warn: $arg is already existed, please check it"
+    echo "-warn: $arg is already existed, please check it"
   fi
 
   done
 
 
 
-echo "PHASE: FINISHED"
+echo "----- FINISHED"
