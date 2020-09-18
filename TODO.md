@@ -9,5 +9,5 @@
 - merge-config
 
 
-- ~~初始化專案 sh~~
+- ~~初始化專案sh~~
 - ~~gen檔sh~~
