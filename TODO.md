@@ -1,10 +1,10 @@
 - pug 
-- image v
+- ~~image~~
 - compress
-- es6+ v
+- ~~es6+~~
 - 多頁面
 - lint
-- scss
-- rwd
+- ~~scss~~
+- ~~rwd~~
 - merge-config
 - pug 用merge方式另外寫個webpack
