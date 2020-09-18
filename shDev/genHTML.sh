@@ -14,9 +14,19 @@ templateString='
 
 echo "Check is file name conflict ..."
 
+# 沒有參數直接離開
+if [ "$#" = "0" ]
+then
+  exit
+fi
+
 echo "--- Start generate .html template"
 
-echo $templateString >> src/template/$1.html
-echo $templateString >> src/template/$2.html
+# 產生files
+for i in $@
+  do
+    echo $templateString >> src/template/$i.html
+    touch src/js/$i.js
+  done
 
 echo "--- Created template(s) success "

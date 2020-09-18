@@ -1,4 +1,20 @@
+#!/bin/sh
+echo $@
 
-templateString="test"
+if [ "$#" = "0" ]
+then
+  exit
+fi
 
-echo $templateString >> abac.html
+
+if [ "$#" != "0" ]
+then
+  echo "count $#"
+fi
+
+
+for i in $@
+  do
+    echo $i
+  done
+

@@ -11,9 +11,19 @@ html(lang="en")\n
 
 echo "Check is file name conflict ..."
 
-echo "--- Start generate .pug template "
+# 沒有參數直接離開
+if [ "$#" = "0" ]
+then
+  exit
+fi
 
-echo $templateString >> src/template/$1.pug
-echo $templateString >> src/template/$2.pug
+echo "--- Start generate .pug template"
+
+# 產生files
+for i in $@
+  do
+    echo $templateString >> src/template/$i.pug
+    touch src/js/$i.js
+  done
 
 echo "--- Created template(s) success "
