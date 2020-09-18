@@ -11,12 +11,12 @@ templateString='
 </html>\n
 '
 
-echo "PHASE: Start generate .html template"
+echo "----- Start generate .html template"
 
 # 沒有參數直接離開
 if [ "$#" = "0" ]
 then
-  echo "PHASE: please enter at least a argument"
+  echo "-WARN: please enter at least a argument"
   echo "EXIT"
   exit
 fi
@@ -28,7 +28,6 @@ for arg in $@
   for dir in $(ls ./src/js)  
     do
       filename="${dir%.*}"
-      echo "$arg $filename"
 
       if [ "$arg" = "$filename" ]
       then
@@ -41,11 +40,11 @@ for arg in $@
   then
     echo $templateString >> src/template/$arg.html
     touch src/js/$arg.js
-    echo "info: create $arg.html and $arg.js success!"
+    echo "-INFO: create $arg.html and $arg.js success!"
   else
-    echo "warn: $arg is already existed, please check it"
+    echo "-WARN: $arg is already existed, please check it"
   fi
 
   done
 
-echo "PHASE: FINISHED"
+echo "-----  FINISHED\n"

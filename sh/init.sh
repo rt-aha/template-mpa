@@ -3,7 +3,7 @@
 function genEnv {
   # rm shDev/gen$2.sh
   sh shDev/gen$1.sh home page
-  # sh shDev/genInitEnv.sh 
+  sh shDev/genInitEnv.sh $1
 }
 
 PS3="Please choose the template language that you want to use:"
