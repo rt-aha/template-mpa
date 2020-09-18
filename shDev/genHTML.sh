@@ -11,22 +11,41 @@ templateString='
 </html>\n
 '
 
-
-echo "Check is file name conflict ..."
+echo "PHASE: Start generate .html template"
 
 # 沒有參數直接離開
 if [ "$#" = "0" ]
 then
+  echo "PHASE: please enter at least a argument"
+  echo "EXIT"
   exit
 fi
 
-echo "--- Start generate .html template"
 
-# 產生files
-for i in $@
+for arg in $@
   do
-    echo $templateString >> src/template/$i.html
-    touch src/js/$i.js
+  isExist=f
+  for dir in $(ls ./src/js)  
+    do
+      filename="${dir%.*}"
+      echo "$arg $filename"
+
+      if [ "$arg" = "$filename" ]
+      then
+        
+        isExist=t
+      fi
+    done
+
+  if [ "$isExist" = "f" ]
+  then
+    echo $templateString >> src/template/$arg.html
+    touch src/js/$arg.js
+    echo "info: create $arg.html and $arg.js success!"
+  else
+    echo "warn: $arg is already existed, please check it"
+  fi
+
   done
 
-echo "--- Created template(s) success "
+echo "PHASE: FINISHED"

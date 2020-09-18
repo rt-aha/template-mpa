@@ -5,25 +5,47 @@ html(lang="en")\n
 \t\tmeta(charset="UTF-8")\n
 \t\tmeta(name="viewport", content="width=device-width, initial-scale=1.0")\n
 \t\ttitle Document\n
-\t
 \tbody\n
 '
 
-echo "Check is file name conflict ..."
+
+echo "PHASE: Start generate .html template and .js"
 
 # 沒有參數直接離開
 if [ "$#" = "0" ]
 then
+  echo "PHASE: please enter at least a argument"
+  echo "EXIT"
   exit
 fi
 
-echo "--- Start generate .pug template"
 
-# 產生files
-for i in $@
+for arg in $@
   do
-    echo $templateString >> src/template/$i.pug
-    touch src/js/$i.js
+  isExist=f
+  for dir in $(ls src/js)  
+    do
+      filename="${dir%.*}"
+      echo "$arg $filename"
+
+      if [ "$arg" = "$filename" ]
+      then
+        
+        isExist=t
+      fi
+    done
+
+  if [ "$isExist" = "f" ]
+  then
+    echo $templateString >> src/template/$arg.pug
+    touch src/js/$arg.js
+    echo "info: create $arg.pug and $arg.js success!"
+  else
+    echo "warn: $arg is already existed, please check it"
+  fi
+
   done
 
-echo "--- Created template(s) success "
+
+
+echo "PHASE: FINISHED"
