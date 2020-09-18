@@ -9,7 +9,7 @@ html(lang="en")\n
 '
 
 
-echo "----- Start generate .html template and .js"
+echo "----- Start generate .pug template"
 
 # 沒有參數直接離開
 if [ "$#" = "0" ]
@@ -23,7 +23,7 @@ fi
 for arg in $@
   do
   isExist=f
-  for dir in $(ls src/js)  
+  for dir in $(ls ./src/js)  
     do
       filename="${dir%.*}"
 
@@ -36,15 +36,21 @@ for arg in $@
 
   if [ "$isExist" = "f" ]
   then
+
+    jsTemplateString="
+    import '@/template/$arg.pug';\n
+    import '@/styles/preset/index.scss';\n
+    import '@/styles/$arg.scss';\n
+    "
+
     echo $templateString >> src/template/$arg.pug
-    touch src/js/$arg.js
-    echo "-info: create $arg.pug and $arg.js success!"
+    echo $jsTemplateString >> src/js/$arg.js
+    touch src/styles/${arg}.scss
+    echo "-INFO: create $arg.pug, $arg.scss, $arg.js success!"
   else
-    echo "-warn: $arg is already existed, please check it"
+    echo "-WARN: $arg is already existed, please check it"
   fi
 
   done
 
-
-
-echo "----- FINISHED\n"
+echo "-----  FINISHED\n"

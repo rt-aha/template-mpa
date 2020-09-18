@@ -38,9 +38,17 @@ for arg in $@
 
   if [ "$isExist" = "f" ]
   then
+
+    jsTemplateString="
+    import '@/template/$arg.html';\n
+    import '@/styles/preset/index.scss';\n
+    import '@/styles/$arg.scss';\n
+    "
+
     echo $templateString >> src/template/$arg.html
-    touch src/js/$arg.js
-    echo "-INFO: create $arg.html and $arg.js success!"
+    echo $jsTemplateString >> src/js/$arg.js
+    touch src/styles/${arg}.scss
+    echo "-INFO: create $arg.html, $arg.scss, $arg.js success!"
   else
     echo "-WARN: $arg is already existed, please check it"
   fi

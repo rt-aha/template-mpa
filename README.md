@@ -2,7 +2,7 @@
 
 指令: `sh sh/init.sh`
 
-1. 生成選項 html還是pug，依據所選，自動生成幾個模板到**src/template**中，並刪除sh資料夾中非對應生成模板的`.sh`
+1. 生成選項 html還是pug，依據所選，自動生成`home.html`, `home.scss`, `home.js`中，並刪除sh資料夾中非對應生成模板的`.sh`
 2. 產`.env`檔寫入此專案使用的模板
 
 ## 生成頁面
@@ -13,6 +13,7 @@ eg: `sh sh/genHTML page1 page2`
 1. 判斷是否有相同檔案，若有暫停生成，並報錯
 2. 生成`[檔名].html`或`[檔名].pug`到template資料夾
 3. 生成`[檔名].js`到js資料夾
+3. 生成`[檔名].scss`到scss資料夾
 
 ### src/assets
 

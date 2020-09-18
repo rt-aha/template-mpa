@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function genEnv {
-  # rm shDev/gen$2.sh
-  sh shDev/gen$1.sh home page
-  sh shDev/genInitEnv.sh $1
+  # rm sh/gen$2.sh
+  sh sh/gen$1.sh page
+  sh sh/genInitEnv.sh $1
 }
 
 PS3="Please choose the template language that you want to use:"
