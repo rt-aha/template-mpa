@@ -1,12 +1,39 @@
-# fe-webpack
+## 初始化專案
 
-## bugs
+指令: `yarn init [html|pug]`
 
-- 熱重載失效
+1. 生成選項 html還是pug，依據所選，自動生成幾個模板到**src/template**中，並刪除sh資料夾中中非對應生成模板的`.sh`
+2. 產`.env`檔寫入此專案使用的模板
 
-## note
+## 生成頁面
 
-### extract-text-webpack-plugin
+指令: `yarn gen:html [檔名]`或`yarn gen:pug [檔名]`
 
-這個 plugin 原本是用做分離出 css 檔案的，webpack 4 之後棄用了
-改用 `mini-css-extract-plugin`
+1. 判斷是否有相同檔案，若有暫停生成，並報錯
+2. 生成`[檔名].html`或`[檔名].pug`到template資料夾
+3. 生成`[檔名].js`到js資料夾
+
+### src/assets
+
+放圖片等靜態資源
+
+### src/js
+
+對應頁面的js，會與template中名稱一樣
+
+### src/lib
+
+套件放的位置
+
+### src/styles
+
+CSS放的位置
+
+### src/template
+
+模板存放地
+
+### src/testFiles
+
+做這個專案boilplate的測試資料
+

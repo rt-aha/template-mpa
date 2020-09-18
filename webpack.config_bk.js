@@ -1,18 +1,4 @@
 // https://www.jianshu.com/p/4d254c191726
-const glob = require('glob');
-
-const getEntry = () => {
-  const entry = {};
-  glob.sync('./src/pages/*.js').forEach((name) => {
-    const start = name.indexOf('/src/pages/') + 11; //前面路徑共8個位元的字串，設定的資料夾路徑不同，也要記得更改位元數喔!
-    const end = name.length - 3; //減去附檔名 .js 共三個位元的字串
-    const eArr = [];
-    const n = name.slice(start, end); //取得每個js的名稱
-    eArr.push(name); //push至陣列中
-    entry[n] = eArr; //就會產生多筆入口的陣列囉！
-  });
-  return entry;
-};
 
 const webpack = require('webpack');
 const path = require('path');
@@ -20,9 +6,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
+module.exports = {
   devtool: 'cheap-eval-source-map',
-  entry: getEntry(),
+  entry: ['./src/index.js'],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'js/[name].[hash:8].js', // js ouput到dist資料夾的位置
@@ -35,29 +21,14 @@ const config = {
         test: /\.html$/,
         loader: 'html-loader',
         options: {
-          attributes: true,
-        },
-      },
-      {
-        test: /\.pug$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              minimize: false, // 不壓縮 HTML
-            },
-          },
-          {
-            loader: 'pug-html-loader',
-            options: {
-              pretty: true, // 美化 HTML 的編排 (不壓縮HTML的一種)
-            },
-          },
-        ],
+          attributes: true
+        }
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+         'css-loader'],
       },
       {
         test: /\.(scss|sass)$/,
@@ -82,8 +53,8 @@ const config = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: './assets/fonts/',
-        },
+          outputPath: './assets/fonts/'
+        }
       },
       // 將js轉為es5語法
       {
@@ -92,10 +63,11 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+      
     ],
   },
   plugins: [
@@ -105,7 +77,7 @@ const config = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/template/', 'index.html'),
+      template: path.resolve(__dirname, './src/template/','index.html'),
     }),
   ],
   resolve: {
@@ -117,25 +89,8 @@ const config = {
     contentBase: './dist', //本地服务器所加载的页面所在的目录
     port: 7010, // port
     hot: true, // 熱重載，僅更新不一樣的部分
+    // inline: false, // 會重新載入
+    // compress: false, // 是否執行壓縮, 預設default
     open: false, // 是否自動開啟網頁
   },
 };
-
-console.log('config.entry', Object.keys(config.entry));
-
-Object.keys(config.entry).forEach((name) => {
-  config.plugins.push(
-    new HtmlWebpackPlugin({
-      template: `./src/pugTemplate/${name}.pug`,
-      filename: `${name}.html`,
-      chunks: ['common', 'runtime', 'vendor', 'action', `${name}`],
-      minify: {
-        removeComments: false,
-        collapseWhitespace: false, // 壓縮 HTML
-        removeAttributeQuotes: false,
-      },
-    }),
-  );
-});
-
-module.exports = config;
