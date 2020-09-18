@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function genEnv {
-  rm sh/gen$2.sh
+  # rm sh/gen$2.sh
   sh sh/gen$1.sh page
   sh sh/genInitEnv.sh $1
 }
