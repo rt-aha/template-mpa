@@ -4,10 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "dev": "webpack-dev-server --config webpack.config.js",
-    "dev2": "webpack --config webpack.config.js"
+    "test:dev": "webpack-dev-server --config config/webpack.dev.js",
+    "test:prod": "webpack --config config/webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,8 @@
     "url-loader": "^4.1.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^5.1.4"
   },
   "dependencies": {}
 }
