@@ -119,9 +119,9 @@ fileList.forEach((name) => {
       filename: `${name}.html`,
       chunks: ['common', 'runtime', 'vendor', 'action', `${name}`],
       minify: {
-        removeComments: false,
-        collapseWhitespace: false, // 壓縮 HTML
-        removeAttributeQuotes: false,
+        removeComments: true,
+        collapseWhitespace: true, // 壓縮 HTML
+        removeAttributeQuotes: true,
       },
     }),
   );

@@ -1,5 +1,5 @@
 - lint
-- merge webpacak config
+- ~~merge webpacak config~~
 
 - ~~pug~~
 - ~~image~~
@@ -8,5 +8,5 @@
 - ~~多頁面~~
 - ~~scss~~
 - ~~rwd~~
-- ~~初始化專案sh~~
-- ~~gen檔sh~~
+- ~~初始化專案 sh~~
+  - ~~gen 檔 sh~~
