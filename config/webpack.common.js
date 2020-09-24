@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+// const dirPath = path.resolve();
+
 const envType = process.env.ENV_TYPE;
 
 // https://www.jianshu.com/p/4d254c191726
@@ -19,8 +21,7 @@ const getEntry = () => {
 };
 
 const fileList = Object.keys(getEntry());
-console.log('getEntry()', getEntry());
-console.log('fileList', fileList);
+
 // 若沒有任何模板就跳開
 if (fileList.length === 0) {
   throw new Error('Please run command `sh sh/init.sh` first!!');
@@ -28,15 +29,15 @@ if (fileList.length === 0) {
 
 const webpack = require('webpack');
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   devtool: 'cheap-eval-source-map',
   entry: getEntry(),
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.resolve('dist'),
     filename: 'js/[name].[hash:8].js', // js ouput到dist資料夾的位置
     chunkFilename: 'js/[name].shared.js', // js ouput到dist資料夾的位置
   },
@@ -65,18 +66,6 @@ const config = {
               pretty: true, // 美化 HTML 的編排 (不壓縮HTML的一種)
             },
           },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
         ],
       },
       {
@@ -113,11 +102,12 @@ const config = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: './styles/[name].css', // css ouput到dist資料夾的位置
+      chunkFilename: '[id].css',
     }),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../src/'),
+      '@': path.resolve('src/'),
     },
   },
 };
