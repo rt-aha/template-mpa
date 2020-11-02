@@ -1,0 +1,63 @@
+// 共用mixin
+
+// 字
+// 參數 顏色, 字體大小, 字體粗細
+@mixin font-style($c, $fs, $fw: normal) {
+  color: $c;
+  font-size: $fs;
+  font-weight: $fw;
+}
+
+// 字 + 字寬
+// 參數 顏色, 字體大小, 字體粗細, 字寬
+@mixin font-style-ls($c, $fs, $fw, $ls) {
+  color: $c;
+  font-size: $fs;
+  font-weight: $fw;
+  letter-spacing: $ls;
+}
+
+@mixin box-padding($padding) {
+  box-sizing: border-box;
+  padding: $padding;
+}
+
+@mixin cus-flex($js: flex-start, $ai: center, $fd: row) {
+  display: flex;
+  justify-content: $js;
+  align-items: $ai;
+  flex-direction: $fd;
+}
+
+@mixin absolute-center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin cus-position($left: 0, $top: 0) {
+  position: absolute;
+  left: $left;
+  top: $top;
+}
+
+@mixin cus-border($color, $radius: 0px, $w: 1px, $line-style: solid) {
+  border: $color $w $line-style;
+  border-radius: $radius;
+}
+
+@mixin cus-radius($tl, $tr, $br, $bl) {
+  border-top-left-radius: $tl;
+  border-top-right-radius: $tr;
+  border-bottom-right-radius: $br;
+  border-bottom-left-radius: $bl;
+}
+
+// 移除button 所有預設
+@mixin set-btn-default() {
+  border: 0px transparent;
+  outline: 0px transparent;
+  background-color: transparent;
+  cursor: pointer;
+}

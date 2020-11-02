@@ -1,0 +1,67 @@
+// 這裡的mixin只有這個檔案會用到，所以沒有特別放到_mixin.scss中
+
+// rwd
+// 三個變數依序為 rwd斷點名稱，rwd斷點寬度，內部容器寬度
+// 如需增加斷點，在 $rwd_break_point 中添加即可
+$rwd_break_point: (mobile 375px 90%, tablet 768px 720px, pc 1024px 960px, largePC 1440px 1320px); 
+
+.g-section {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+  // @include box-padding(auto 15px);
+  
+}
+
+.g-content {
+  margin: 0 auto;
+  // padding: 0 15px;
+}
+
+
+@mixin set_content_size($content_size_value) {
+  .g-section {
+    width: 100%;
+    padding: 0;
+  }
+
+  .g-content {
+    width: 100%;
+    max-width: $content_size_value;
+  }
+}
+
+@mixin rwd($break_point_key) {
+  @each $break_point, $break_point_value,
+    $content_size_value in $rwd_break_point
+  {
+    @if $break_point == $break_point_key {
+      @media screen and (min-width: $break_point_value) {
+        @include set_content_size($content_size_value);
+        @content;
+      }
+    }
+  }
+}
+
+
+// @mixin execute_default_css($rwd_params) {
+
+//   @each $break_point,
+//   $break_point_value,
+//   $content_size_value in $rwd_params {
+//     @include rwd($break_point);
+//   }
+// }
+
+// @include execute_default_css($rwd_break_point)
+
+@include rwd(mobile) {}
+@include rwd(tablet) {}
+@include rwd(pc) {}
+@include rwd(largePC) {}
+
+
+
+

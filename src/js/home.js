@@ -1,3 +1,5 @@
 import '@/template/home.html';
-import '@/styles/preset/index.scss';
+import '@/styles/varsAndMixins/index.scss';
+import '@/styles/default/index.scss';
+import '@/styles/shared/index.scss';
 import '@/styles/home.scss';
