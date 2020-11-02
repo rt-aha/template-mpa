@@ -1,22 +1,22 @@
 @import './preset/mixin';
 
-@mixin flex($struc, $param, $contentName) {
-  $lcr: ('left', 'center', 'right');
-
-  #{map-get($struc, container)} {
+@mixin flex($container, $paramList, $contentName) {
+  #{$container} {
     width: 100%;
     display: flex;
 
-    @each $arg in $lcr {
-      &#{map-get($struc, $arg)} {
-        @if map-get($param, $arg) == 1 {
+    @debug $paramList;
+
+    @each $arg in $paramList {
+      &#{map-get($arg, 'stru')} {
+        @if map-get($arg, 'param') == 1 {
           flex: 1;
         } @else {
           flex: none;
-          width: #{map-get($param, $arg)};
+          width: #{map-get($arg, 'param')};
         }
 
-        @extend #{$contentName}__#{$arg};
+        @extend #{$contentName}#{map-get($arg, 'stru')};
       }
     }
   }
@@ -29,6 +29,10 @@
 
   &__center {
     color: #0f0;
+  }
+
+  &__center2 {
+    color: #f00;
   }
 
   &__right {
@@ -52,17 +56,21 @@
   }
 }
 
-$boxStru: (
-  container: '.box',
-  left: '__left',
-  center: '__center',
-  right: '__right',
-);
+$boxList: (
+    stru: '__left',
+    param: '100px',
+  ),
+  (
+    stru: '__center',
+    param: 1,
+  ),
+  (
+    stru: '__center2',
+    param: '150px',
+  ),
+  (
+    stru: '__right',
+    param: '100px',
+  );
 
-$boxParam: (
-  left: '100px',
-  center: 1,
-  right: '100px',
-);
-
-@include flex($boxStru, $boxParam, '.box-content');
+@include flex('.box', $boxList, '.box-content');
