@@ -1,5 +1,11 @@
 @import './preset/mixin';
 
+/**
+  @container: 父層, 
+  @paramList: 一個物件陣列，包含 stru(子層class不含父層的名稱)key和 param(flex值) key
+  @contentName: 子層內部樣式
+  
+*/
 @mixin flex($container, $paramList, $contentName) {
   #{$container} {
     width: 100%;
@@ -16,7 +22,7 @@
           width: #{map-get($arg, 'param')};
         }
 
-        @extend #{$contentName}#{map-get($arg, 'stru')};
+        @extend #{$contentName}#{map-get($arg, 'stru')}; // TODO 可寫不可寫，在考慮要不要拔掉
       }
     }
   }
