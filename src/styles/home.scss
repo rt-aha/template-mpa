@@ -1,3 +1,68 @@
-* {
-  color: #f00;
+@import './preset/mixin';
+
+@mixin flex($struc, $param, $contentName) {
+  $lcr: ('left', 'center', 'right');
+
+  #{map-get($struc, container)} {
+    width: 100%;
+    display: flex;
+
+    @each $arg in $lcr {
+      &#{map-get($struc, $arg)} {
+        @if map-get($param, $arg) == 1 {
+          flex: 1;
+        } @else {
+          flex: none;
+          width: #{map-get($param, $arg)};
+        }
+
+        @extend #{$contentName}__#{$arg};
+      }
+    }
+  }
 }
+
+.box-content {
+  &__left {
+    color: #f00;
+  }
+
+  &__center {
+    color: #0f0;
+  }
+
+  &__right {
+    color: #00f;
+  }
+}
+
+@include rwd(tablet) {
+  .box-content {
+    &__left {
+      color: #999;
+    }
+
+    &__center {
+      color: #bbb;
+    }
+
+    &__right {
+      color: #222;
+    }
+  }
+}
+
+$boxStru: (
+  container: '.box',
+  left: '__left',
+  center: '__center',
+  right: '__right',
+);
+
+$boxParam: (
+  left: '100px',
+  center: 1,
+  right: '100px',
+);
+
+@include flex($boxStru, $boxParam, '.box-content');
