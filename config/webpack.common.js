@@ -1,10 +1,7 @@
 require('dotenv').config();
 
-// const dirPath = path.resolve();
-
 const envType = process.env.ENV_TYPE;
 
-// https://www.jianshu.com/p/4d254c191726
 const glob = require('glob');
 
 const getEntry = () => {

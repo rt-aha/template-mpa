@@ -4,8 +4,6 @@ const common = require('./webpack.common');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// import merge from 'webpack-merge';
-
 const devConfig = {
   mode: 'development',
   plugins: [new webpack.HotModuleReplacementPlugin()],
