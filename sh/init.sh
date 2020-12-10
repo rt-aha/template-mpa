@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function genEnv {
-  # rm sh/gen$2.sh
-  sh sh/gen$1.sh home
+  rm sh/gen$2.sh
+  sh sh/gen$1.sh index
   sh sh/genInitEnv.sh $1
 }
 
