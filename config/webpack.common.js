@@ -1,8 +1,12 @@
 require('dotenv').config();
 
-const envType = process.env.ENV_TYPE;
-
 const glob = require('glob');
+const webpack = require('webpack');
+const WebpackBar = require('webpackbar');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { errorLog,importantLog } = require('./utils');
 
 const getEntry = () => {
   const entry = {};
@@ -21,14 +25,9 @@ const fileList = Object.keys(getEntry());
 
 // 若沒有任何模板就跳開
 if (fileList.length === 0) {
-  throw new Error('Please run command `sh sh/init.sh` first!!');
+  console.log(errorLog('ℹ Please run command `sh sh/init.sh` first!!'));
+  throw new process.exit(1);
 }
-
-const webpack = require('webpack');
-const path = require('path');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   devtool: 'cheap-eval-source-map',
@@ -101,18 +100,23 @@ const config = {
       filename: './styles/[name].css', // css ouput到dist資料夾的位置
       chunkFilename: '[id].css',
     }),
+    new WebpackBar()
   ],
   resolve: {
     alias: {
       '@': path.resolve('src/'),
     },
   },
+  stats: {
+    excludeModules: "mini-css-extract-plugin"
+  },
 };
+
 
 fileList.forEach((name) => {
   config.plugins.push(
     new HtmlWebpackPlugin({
-      template: `./src/template/${name}.${envType.toLowerCase()}`,
+      template: `./src/template/${name}.${process.env.ENV_TYPE.toLowerCase()}`,
       filename: `${name}.html`,
       chunks: ['common', 'runtime', 'vendor', 'action', `${name}`],
       minify: {
